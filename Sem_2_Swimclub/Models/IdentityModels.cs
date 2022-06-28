@@ -14,6 +14,9 @@ namespace Sem_2_Swimclub.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+
+
+        //Sets up the fields for each model associated with a table with in the db.
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -21,7 +24,7 @@ namespace Sem_2_Swimclub.Models
             // Add custom user claims here
             return userIdentity;
         }
-
+        
         [StringLength(5)]
         public string Title { get; set; }
         [StringLength(20)]
@@ -40,6 +43,7 @@ namespace Sem_2_Swimclub.Models
     }
 
 
+    //Stores details on groups of family members consisting of a parent/administrator and a list of linked child accounts.
     public class FamilyGroup
     {
         [Key, StringLength(128), ForeignKey("User")]
@@ -60,6 +64,7 @@ namespace Sem_2_Swimclub.Models
         public virtual List<ChildFamilyGroupRel> ChildFamilyGroupRel { get; set; }
     }
 
+    //A relational table linking a child user to a respective family group
     public class ChildFamilyGroupRel
     {
         [Key, Column(Order = 0), StringLength(128), ForeignKey("FamilyGroup")]
@@ -71,6 +76,7 @@ namespace Sem_2_Swimclub.Models
         public virtual FamilyGroup FamilyGroup { get; set; }
     }
 
+    //Stores information on competitor details such as a link to an event and time in seconds/reason for not finishing
     public class Competitor
     {
         [Key, Column(Order = 0), ForeignKey("Event")]
@@ -88,6 +94,7 @@ namespace Sem_2_Swimclub.Models
 
     }
 
+    //Stores details of a particular event as part of a meet.
     public class Event
     {
         [Key]
@@ -128,6 +135,7 @@ namespace Sem_2_Swimclub.Models
 
     }
 
+    //Stores details of meets including the meet date/time and address of said meet.
     public class Meet
     {
         [Key]
@@ -148,6 +156,8 @@ namespace Sem_2_Swimclub.Models
 
     }
 
+
+    //Initializes the collection of models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

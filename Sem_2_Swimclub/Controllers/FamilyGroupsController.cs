@@ -18,6 +18,10 @@ namespace Sem_2_Swimclub.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         
+        /// <summary>
+        /// Returns all family groups in the system.
+        /// </summary>
+        /// <returns></returns>
         // GET: api/FamilyGroups
         [Authorize(Roles = "Club Member")]
         [Route("api/FamilyGroups/")]
@@ -44,6 +48,10 @@ namespace Sem_2_Swimclub.Controllers
             return familyGroups;
         }
 
+        /// <summary>
+        /// Returns the family group details of the user currently connected.
+        /// </summary>
+        /// <returns></returns>
         // GET: api/FamilyGroups/UserDetails
         [Authorize]
         [Route("api/FamilyGroup/")]
@@ -70,6 +78,11 @@ namespace Sem_2_Swimclub.Controllers
             });
         }
 
+        /// <summary>
+        /// Returns the details of a family group with a specific ID.
+        /// </summary>
+        /// <param name="id">The ID of the group to be queried</param>
+        /// <returns></returns>
         // GET: api/FamilyGroups/5
         [ResponseType(typeof(FamilyGroup))]
         [Route("api/FamilyGroups/{id}", Name = "GetFamilyGroupById")]
@@ -108,6 +121,12 @@ namespace Sem_2_Swimclub.Controllers
             }
             return childrenRel;
         }
+        /// <summary>
+        /// Amends the details of a family group as an administrator.
+        /// </summary>
+        /// <param name="id">The ID of the group to be updated.</param>
+        /// <param name="familyGroup">A list of the information to change.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // PUT: api/FamilyGroups/5
         [Route("api/FamilyGroups/{id}")]
@@ -145,6 +164,11 @@ namespace Sem_2_Swimclub.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Amend the details of your family group as a parent.
+        /// </summary>
+        /// <param name="editModel">A list of the details to edit.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Parent")]
         // PUT: api/FamilyGroups/
         [Route("api/FamilyGroup")]
@@ -189,6 +213,12 @@ namespace Sem_2_Swimclub.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+
+        /// <summary>
+        /// Create a new family group.
+        /// </summary>
+        /// <param name="familyGroup">The details of the new family group.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // POST: api/FamilyGroups
         [Route("api/FamilyGroups/")]
@@ -220,6 +250,12 @@ namespace Sem_2_Swimclub.Controllers
 
             return CreatedAtRoute("GetFamilyGroupUserDetails", new { }, familyGroup);
         }
+
+        /// <summary>
+        /// Link a child account to a family group.
+        /// </summary>
+        /// <param name="childGroupRel">Details on the child account to be linked to the family group.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // POST: api/FamilyGroups/ChildGroupRel
         [Route("api/FamilyGroups/ChildGroupRel")]
@@ -256,10 +292,17 @@ namespace Sem_2_Swimclub.Controllers
         {
             return db.ChildFamilyGroupRel.Count(e => e.FamilyGroupID == familyGroupID && e.UserID == userID) > 0;
         }
+
+        /// <summary>
+        /// Delete an existing family group.
+        /// </summary>
+        /// <param name="id">The ID of the group to be deleted.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // DELETE: api/FamilyGroups/5
         [Route("api/FamilyGroups/{id}")]
         [ResponseType(typeof(FamilyGroup))]
+
         public IHttpActionResult DeleteFamilyGroup(string id)
         {
             FamilyGroup familyGroup = db.FamilyGroup.Find(id);
@@ -274,6 +317,12 @@ namespace Sem_2_Swimclub.Controllers
             return Ok(familyGroup);
         }
 
+        /// <summary>
+        /// Remove a child account from a family group.
+        /// </summary>
+        /// <param name="familyGroupId">The family group ID to unlink</param>
+        /// <param name="userId">The user to remove from the family group.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // DELETE: api/FamilyGroups/5,302c1b8d-3036-40af-8a9c-f0d5dc8c1572
         [Route("api/FamilyGroups/")]

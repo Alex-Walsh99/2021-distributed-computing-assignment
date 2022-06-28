@@ -15,10 +15,17 @@ using Sem_2_Swimclub.Models.ViewModels;
 
 namespace Sem_2_Swimclub.Controllers
 {
+    /// <summary>
+    /// Handles data regarding swimming meets.
+    /// </summary>
     public class MeetsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Returns a list of all the meets on the system.
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Meets
         public List<MeetViewModel> GetMeets()
         {
@@ -85,7 +92,11 @@ namespace Sem_2_Swimclub.Controllers
             }
             return competitors;
         }
-
+        /// <summary>
+        /// Returns a meet with a given ID.
+        /// </summary>
+        /// <param name="id">The ID of the meet to be returned.</param>
+        /// <returns></returns>
         // GET: api/Meets/5
         [ResponseType(typeof(Meet))]
         public IHttpActionResult GetMeet(int id)
@@ -109,7 +120,12 @@ namespace Sem_2_Swimclub.Controllers
 
             return Ok(meetView);
         }
-
+        /// <summary>
+        /// Edits an existing meet with new information.
+        /// </summary>
+        /// <param name="id">The ID of the meet to edit.</param>
+        /// <param name="meetModel">The model including the new data to be included.</param>
+        /// <returns></returns>
         // PUT: api/Meets/5
         [Authorize(Roles = "Club Member")]
         [ResponseType(typeof(void))]
@@ -144,7 +160,11 @@ namespace Sem_2_Swimclub.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
+        /// <summary>
+        /// Creates a new meet.
+        /// </summary>
+        /// <param name="meet">The model with the information to be added to the specific meet.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // POST: api/Meets
         [ResponseType(typeof(Meet))]
@@ -160,6 +180,12 @@ namespace Sem_2_Swimclub.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = meet.MeetId }, meet);
         }
+
+        /// <summary>
+        ///  Deletes a meet with a given ID.
+        /// </summary>
+        /// <param name="id">The ID of the meet to be deleted.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // DELETE: api/Meets/5
         [ResponseType(typeof(Meet))]
@@ -177,6 +203,10 @@ namespace Sem_2_Swimclub.Controllers
             return Ok(meet);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

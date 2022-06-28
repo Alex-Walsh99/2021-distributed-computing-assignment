@@ -83,7 +83,11 @@ namespace Sem_2_Swimclub.Controllers
             return users;
         }
 
-
+        /// <summary>
+        /// Returns account details of a user with a specific ID
+        /// </summary>
+        /// <param name="userId">The user ID to search by.</param>
+        /// <returns></returns>
         // GET api/Account/1
         public UserDetailsViewModel GetAccount(string userId)
         {
@@ -100,6 +104,11 @@ namespace Sem_2_Swimclub.Controllers
             };
         }
 
+
+        /// <summary>
+        /// Returns the info of the currently connected user.
+        /// </summary>
+        /// <returns></returns>
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
@@ -117,6 +126,14 @@ namespace Sem_2_Swimclub.Controllers
                 UserName = user.Email
             };
         }
+
+        /// <summary>
+        /// Returns a list of swimmers that satisfy specific criteria.
+        /// </summary>
+        /// <param name="lastName">Input a surname to search by.</param>
+        /// <param name="minAge">Input a minimum age to search by..</param>
+        /// <param name="maxAge">Input a maximum age to search by.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         public List<UserDetailsViewModel> GetSwimmers(string lastName, int? minAge, int? maxAge)
         {
@@ -151,6 +168,10 @@ namespace Sem_2_Swimclub.Controllers
             return usersModel;
         }
 
+        /// <summary>
+        /// Logs a user out of their account.
+        /// </summary>
+        /// <returns></returns>
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
@@ -199,6 +220,11 @@ namespace Sem_2_Swimclub.Controllers
             };
         }
 
+        /// <summary>
+        /// Allows a user to enter a new password.
+        /// </summary>
+        /// <param name="model">The model for inputting information on a password change request.</param>
+        /// <returns></returns>
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
@@ -219,6 +245,11 @@ namespace Sem_2_Swimclub.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Set a password for the logged-in user user.
+        /// </summary>
+        /// <param name="model">The model for inputting information for setting a password.</param>
+        /// <returns></returns>
         // POST api/Account/SetPassword
         [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
@@ -466,6 +497,12 @@ namespace Sem_2_Swimclub.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Register a parent account.
+        /// </summary>
+        /// <param name="model">Model containing the information to be stored in the parent entry.</param>
+        /// <returns></returns>
         // POST api/Account/Register/Parent
         [Authorize(Roles = "Club Member")]
         [Route("Register/Parent")]
@@ -498,6 +535,10 @@ namespace Sem_2_Swimclub.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Returns a list of roles a user can be assigned to.
+        /// </summary>
+        /// <returns></returns>
         // POST api/Account/Roles
         [Authorize(Roles = "Club Member")]
         [Route("Roles")]
@@ -517,6 +558,11 @@ namespace Sem_2_Swimclub.Controllers
             return roles;
         }
 
+        /// <summary>
+        /// Returns a list of all the users that satisfy a role criteria.
+        /// </summary>
+        /// <param name="id">The ID of the role to search by.</param>
+        /// <returns></returns>
         // POST api/Account/Role/{id}
         [Authorize(Roles = "Club Member")]
         [Route("Role/{id}")]
@@ -599,7 +645,12 @@ namespace Sem_2_Swimclub.Controllers
             return Ok();
         }
 
-
+        /// <summary>
+        /// Edit the details of a specific member.
+        /// </summary>
+        /// <param name="id">The ID of the user to edit.</param>
+        /// <param name="editModel">The model containing the updated details for this person.</param>
+        /// <returns></returns>
         // PUT: api/Account/EditDetails/1
         [Authorize(Roles = "Club Member")]
         [Route("Account/EditDetails/{id}")]
@@ -632,7 +683,12 @@ namespace Sem_2_Swimclub.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-
+        /// <summary>
+        /// Edits a member's archive status, thereby setting their account to either active or inactive.
+        /// </summary>
+        /// <param name="id">The ID of the user to archive</param>
+        /// <param name="editModel">The model containing the information to be updated.</param>
+        /// <returns></returns>
         // PUT: api/Account/Archive/1
         [Authorize(Roles = "Club Member")]
         [Route("Archive/{id}")]

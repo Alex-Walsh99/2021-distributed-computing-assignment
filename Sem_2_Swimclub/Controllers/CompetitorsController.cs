@@ -18,6 +18,10 @@ namespace Sem_2_Swimclub.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Returns a list of all competitors assigned to an event.
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Competitors
         public List<CompetitorViewModel> GetCompetitors()
         {
@@ -39,7 +43,14 @@ namespace Sem_2_Swimclub.Controllers
             return competitors;
         }
 
-
+        /// <summary>
+        /// Outputs a list of competitors filtered by various criteria.
+        /// </summary>
+        /// <param name="lastName">The surname of the competitor.</param>
+        /// <param name="minAge">The minimum age the query will allow.</param>
+        /// <param name="maxAge">The maximum age the query will allow.</param>
+        /// <param name="stroke">The type of swimming stroke the event was for.</param>
+        /// <returns></returns>
         [AllowAnonymous]
         public List<CompetitorViewModel> GetCompetitors(string lastName, int? minAge, int? maxAge, string stroke)
         {
@@ -73,6 +84,11 @@ namespace Sem_2_Swimclub.Controllers
             return competitorsModel;
         }
 
+        /// <summary>
+        /// returns details on a specific competitor from their ID.
+        /// </summary>
+        /// <param name="id">The ID of the competitor to be returned.</param>
+        /// <returns></returns>
         // GET: api/Competitors/5
         [ResponseType(typeof(Competitor))]
         public IHttpActionResult GetCompetitor(int id)
@@ -93,6 +109,10 @@ namespace Sem_2_Swimclub.Controllers
             return Ok(competitorView);
         }
 
+        /// <summary>
+        /// Returns details on all competitions assigned to the logged in user.
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Competitors/5
         [Authorize(Roles = "Swimmer")]
         [ResponseType(typeof(Competitor))]
@@ -122,7 +142,12 @@ namespace Sem_2_Swimclub.Controllers
             return Ok(competitors);
         }
 
-
+        /// <summary>
+        ///  Edits the details of a specific competitor.
+        /// </summary>
+        /// <param name="id">The ID of the competitor</param>
+        /// <param name="competitor">The information to amend to the existing entry.</param>
+        /// <returns></returns>
         // PUT: api/Competitors/5
         [Authorize(Roles = "Club Member")]
         [ResponseType(typeof(void))]
@@ -159,6 +184,11 @@ namespace Sem_2_Swimclub.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
        
+        /// <summary>
+        /// Adds a new competitor to the table.
+        /// </summary>
+        /// <param name="competitor">A list of the details of the new competitor.</param>
+        /// <returns></returns>
         // POST: api/Competitors
         [ResponseType(typeof(Competitor))] 
         [Authorize(Roles = "Club Member")]
@@ -190,6 +220,11 @@ namespace Sem_2_Swimclub.Controllers
             return CreatedAtRoute("DefaultApi", new { id = competitor.EventId }, competitor);
         }
        
+        /// <summary>
+        /// Deletes a competitor entry.
+        /// </summary>
+        /// <param name="id">The ID of the competitor to delete.</param>
+        /// <returns></returns>
         // DELETE: api/Competitors/5
         [ResponseType(typeof(Competitor))] 
         [Authorize(Roles = "Club Member")]

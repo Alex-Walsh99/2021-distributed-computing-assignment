@@ -17,6 +17,10 @@ namespace Sem_2_Swimclub.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Returns a historical list of all the events on the system.
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Events
         public List<EventViewModel> GetEvents()
         {
@@ -40,6 +44,11 @@ namespace Sem_2_Swimclub.Controllers
             return events;
         }
 
+        /// <summary>
+        /// Returns the event at a specific ID.
+        /// </summary>
+        /// <param name="id">The ID of the event to find.</param>
+        /// <returns></returns>
         // GET: api/Events/5
         [ResponseType(typeof(Event))]
         public IHttpActionResult GetEvent(int id)
@@ -83,6 +92,12 @@ namespace Sem_2_Swimclub.Controllers
             return competitors;
         }
 
+        /// <summary>
+        /// Change the details of a specific Event.
+        /// </summary>
+        /// <param name="id">The id of the event to update.</param>
+        /// <param name="editModel">The details to change.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // PUT: api/Events/5
         [ResponseType(typeof(void))]
@@ -121,6 +136,12 @@ namespace Sem_2_Swimclub.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        /// <summary>
+        /// Add a new event to the system.
+        /// </summary>
+        /// <param name="event">The details of the new event to add.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // POST: api/Events
         [ResponseType(typeof(Event))]
@@ -136,6 +157,11 @@ namespace Sem_2_Swimclub.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = @event.EventId }, @event);
         }
+        /// <summary>
+        /// Delete an event.
+        /// </summary>
+        /// <param name="id">The ID of the event to delete.</param>
+        /// <returns></returns>
         [Authorize(Roles = "Club Member")]
         // DELETE: api/Events/5
         [ResponseType(typeof(Event))]

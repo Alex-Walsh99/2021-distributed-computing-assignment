@@ -120,3 +120,4 @@ C:\Users\Alex\source\repos\Sem_2_Swimclub\Sem_2_Swimclub\obj\Debug\Sem_2_Swimclu
 C:\Users\Alex\source\repos\Sem_2_Swimclub\Sem_2_Swimclub\obj\Debug\Sem_2_Swimclub.Migrations.roles_migration1.resources
 C:\Users\Alex\source\repos\Sem_2_Swimclub\Sem_2_Swimclub\obj\Debug\Sem_2_Swimclub.Migrations.updateevent.resources
 C:\Users\Alex\source\repos\Sem_2_Swimclub\Sem_2_Swimclub\obj\Debug\Sem_2_Swimclub.Migrations.editing.resources
+C:\Users\Alex\source\repos\Sem_2_Swimclub\Sem_2_Swimclub\bin\XmlDocument.xml
